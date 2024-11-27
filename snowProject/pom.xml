@@ -121,12 +121,12 @@
 			<version>1.16</version>
 		</dependency>	
 		<!-- 암호화 -->
-		<!--
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>	
-		-->
+		
 		<!-- validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

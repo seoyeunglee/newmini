@@ -2,6 +2,7 @@ package snowProject.service.member;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import snowProject.command.MemberCommand;
@@ -12,6 +13,8 @@ import snowProject.mapper.MemberMapper;
 public class MemeberWriteService {
 	@Autowired
 	MemberMapper memberMapper;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	
 	public void execute(MemberCommand memberCommand) {
@@ -23,6 +26,8 @@ public class MemeberWriteService {
 			dto.setMemberPhone2(memberCommand.getMemberPhone2().trim());
 		}
 		
+		String encodePw = passwordEncoder.encode(memberCommand.getMemberPw());
+		dto.setMemberPw(encodePw);
 		
 		dto.setMemberPost(memberCommand.getMemberPost());
 		memberMapper.memberInsert(dto);
