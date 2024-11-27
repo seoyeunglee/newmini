@@ -10,7 +10,7 @@ import snowProject.domain.MemberDTO;
 import snowProject.mapper.MemberMapper;
 
 @Service
-public class MemeberWriteService {
+public class MemberWriteService {
 	@Autowired
 	MemberMapper memberMapper;
 	@Autowired

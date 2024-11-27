@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import snowProject.command.MemberCommand;
 import snowProject.service.AutoNumService;
 import snowProject.service.member.MemberListService;
-import snowProject.service.member.MemeberWriteService;
+import snowProject.service.member.MemberWriteService;
 
 @Controller
 @RequestMapping("member")
@@ -22,7 +22,7 @@ public class MemberController {
 	@Autowired
 	AutoNumService autoNumService;
 	@Autowired
-	MemeberWriteService memberWriteService;
+	MemberWriteService memberWriteService;
 	@Autowired
 	MemberListService memberListService;
 	
