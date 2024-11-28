@@ -54,6 +54,42 @@ MEMBER_NUM, MEMBER_NAME, MEMBER_ID, MEMBER_PW
 	select count(*) from members
 </select>
 
+<select id="memberSelectOne" resultType="memberDTO" parameterType="string">
+	select <include refid="memberBaseColumns" />
+	from members
+	where member_num = #{memberNum}
+</select>
+
+<select id="memberUpdate" parameterType="memberDTO">
+	update members
+	<trim prefix="set" suffixOverrides=",">
+		member_name = #{memberName},
+		member_addr = #{memberAddr},
+		<if test="memberAddrDetail == null">
+			member_addr_detail = null,
+		</if>
+		member_post = #{memberPost},
+		gender = #{gender},
+		member_phone1 = #{memberPhone1},
+		member_email = #{memberEmail},
+		member_birth = #{memberBirth},
+		<choose>
+			<when test="memberPhone2 != null">
+			member_phone2 = #{memberPhone2},
+			</when>
+			<when test="memberPhone2 == null">
+			member_phone2 = null,
+			</when>
+		</choose>
+	</trim>
+	where member_num = #{memberNum}
+</select>
+
+<delete id="memberDelete" parameterType="string">
+	delete from members
+	where member_num = #{memberNum}
+</delete>
+
 
 
 </mapper>

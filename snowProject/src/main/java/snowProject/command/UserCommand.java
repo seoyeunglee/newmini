@@ -13,10 +13,11 @@ import lombok.Data;
 
 @Data
 public class UserCommand {
+	String memberNum;
 	@NotEmpty(message = "아이디를 입력해주세요. ")
 	@Size(min = 8, max = 12)
 	String memberId;
-	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
+	@Pattern(regexp = "^(?=.*?[A-Za-z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
 			message = "영문자와 숫자 그리고 특수문자가 포함된 8글자 이상")
 	String memberPw;
 	String memberPwCon;
@@ -26,7 +27,7 @@ public class UserCommand {
 	String memberAddr;
 	String memberAddrDetail;
 	String memberPost;
-	@NotBlank(message = "연락처을 입력하여 주세요.")
+	@NotBlank(message = "연락처를 입력하여 주세요.")
 	@Size(min = 11, max = 13)
 	String memberPhone1;
 	String memberPhone2;

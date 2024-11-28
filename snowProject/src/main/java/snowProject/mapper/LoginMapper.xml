@@ -7,6 +7,8 @@
 
 <select id="idCheckSelectOne" parameterType="string" resultType="integer">
 	select 1 from members where member_id = #{userId}
+	union
+	select 1 from employees where emp_id = #{userId}
 </select>
 
 <resultMap type="auth" id="authResultMap">
@@ -21,6 +23,10 @@
 	select member_id, member_pw, member_name, member_email, 'mem' as grade
 	from members
 	where member_id = #{userId}
+	union
+	select emp_id, emp_pw, emp_name, emp_email, 'emp'
+	from employees
+	where emp_id = #{userId}
 </select>
 
 </mapper>

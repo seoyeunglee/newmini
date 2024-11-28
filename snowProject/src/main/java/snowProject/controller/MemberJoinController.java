@@ -37,6 +37,7 @@ public class MemberJoinController {
 		return "thymeleaf/memberJoin/agree";
 	}
 	
+	
 	@GetMapping("userWrite")
 	public String userWrite() {
 		return "thymeleaf/memberJoin/userForm";
