@@ -30,33 +30,33 @@
 	<result column="emp_jumin" jdbcType="VARCHAR" property="empJumin"/>
 </resultMap>
 
-<select id="employeeAllSelect"   parameterType="startEndPageDTO" 
-	resultMap="employeeResultMap" >
-select * from (
-	select ROW_NUMBER() over (order by emp_num) as rn, 
+<select id="employeeAllSelect" 
+	parameterType="startEndPageDTO" resultMap="employeeResultMap">
+	
+	select * from (
+		select ROW_NUMBER() over (order by emp_num) as rn,
 			<include refid="employeeBaseColumns" />
-	from employees
-	<where>
-		<!-- searchWord에 값이 없으므로 값이 있을 때만 사용하게 조건을 주자. -->
-		<if test="searchWord != null">
-		<!-- 검색 데이터가 일부만 사용할 수 있으므로 like를 사용하고 여러 컬럼을 검사하도록 한다. -->
-			emp_NAME like '%' || #{searchWord} || '%'
-			or emp_id like '%' || #{searchWord} || '%'
-			or emp_num like '%' || #{searchWord} || '%'
-		</if>
-	</where>	
-) 
-where rn between #{startRow}  and #{endRow}
+		from employees
+		<where>
+			<if test="searchWord != null">
+				emp_name like '%' || #{searchWord} || '%'
+				or emp_id like '%' || #{searchWord} || '%'
+				or emp_num like '%' || #{searchWord} || '%'
+			</if>
+		</where>
+		)
+	where rn between #{startRow} and #{endRow}
 </select>
+
 <select id="employeeCount" parameterType="string" resultType="integer">
 	select count(*) from employees
 	<if test='searchWord != null'>
 		<where>
-			emp_NAME like '%' || #{searchWord} || '%'
+			emp_name like '%' || #{searchWord} || '%'
 			or emp_id like '%' || #{searchWord} || '%'
 			or emp_num like '%' || #{searchWord} || '%'
 		</where>
-	</if>
+	</if> 
 </select>
 
 
