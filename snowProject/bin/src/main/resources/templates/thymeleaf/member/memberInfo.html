@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberInfo.html</title>
+</head>
+<body>
+회원 개인정보 페이지 <br/>
+<table border="1" width="600" align="center">
+<tr><td>회원번호 : </td><td>[[${memberCommand.memberNum }]]</td></tr>
+<tr><td>이름 : </td><td>[[${memberCommand.memberName }]]</td></tr>
+<tr><td>아이디 : </td><td>[[${memberCommand.memberId }]]</td></tr>
+<tr><td>주소 : </td><td>[[${memberCommand.memberAddr }]]</td></tr>
+<tr><td>상세주소 : </td><td>[[${memberCommand.memberAddrDetail }]]</td></tr>
+<tr><td>우편번호 : </td><td>[[${memberCommand.memberPost }]]</td></tr>
+<tr><td>연락처1 : </td><td>[[${memberCommand.memberPhone1 }]]</td></tr>
+<tr><td>연락처2 : </td><td>[[${memberCommand.memberPhone2 }]]</td></tr>
+<tr><td>성별 : </td><td><span th:if="${memberCommand.gender == 'M'}">남자</span>
+	  <span th:if="${memberCommand.gender == 'F'}">여자</span><br /></td></tr>
+<tr><td>등록일 : </td><td>[[${#dates.format(memberCommand.memberRegist ,'yyyy-MM-dd')}]]</td></tr>
+<tr><td>생년월일 :</td><td>[[${#dates.format(memberCommand.memberBirth,  'yyyy-MM-dd')}]]</td></tr>
+<tr><td>이메일 : </td><td>[[${memberCommand.memberEmail }]]</td></tr>
+<tr><td colspan="2"><a th:href="@{../memberUpdate(memberNum=${memberCommand.memberNum })}">회원 수정</a> </td>
+<tr><td colspan="2"><a th:href="|../memberDelete/*{memberNum}|">회원 강제 탈퇴</a> </td>
+<tr><td colspan="2"><a href="memberList">회원목록</a></td>
+</table>
+
+</body>
+</html>
