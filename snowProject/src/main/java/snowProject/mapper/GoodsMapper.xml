@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="snowProject.mapper.GoodsMapper">
+
+<sql id="goodsColumnsBase">
+	   GOODS_NUM , GOODS_NAME , GOODS_PRICE ,GOODS_CONTENTS , EMP_NUM  
+	  , GOODS_REGIST , GOODS_MAIN_IMAGE ,GOODS_MAIN_STORE_IMAGE
+	  , GOODS_DETAIL_IMAGE ,GOODS_DETAIL_STORE_IMAGE 
+	  , VISIT_COUNT ,UPDATE_EMP_NUM , GOODS_UPDATE_DATE
+</sql>
+
+<insert id="goodsInsert" parameterType="goods">
+insert into goods ( <include refid="goodsColumnsBase" /> )
+values(#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents}
+		,#{empNum}, sysdate, 
+		#{goodsMainImage}, #{goodsMainStoreImage},
+		<if test="goodsDetailImage != null">
+		#{goodsDetailImage},#{goodsDetailStoreImage},
+		</if>
+		<if test="goodsDetailImage == null">
+		null,null,
+		</if>
+		0,null,null)
+</insert>
+
+<resultMap type="goods" id="goodsResultMap">
+	<constructor>
+		<idArg column="GOODS_NUM" jdbcType="VARCHAR" javaType="string"/>
+		<arg column="GOODS_NAME" jdbcType="VARCHAR" javaType="string" />
+		<arg column="GOODS_PRICE" jdbcType="BIGINT" javaType="integer" />
+		<arg column="GOODS_CONTENTS" javaType="string" jdbcType="VARCHAR" />
+		<arg column="EMP_NUM" javaType="string" jdbcType="VARCHAR" />
+		<arg column="VISIT_COUNT" javaType="integer" jdbcType="BIGINT" />
+		<arg column="GOODS_REGIST" javaType="java.util.Date" jdbcType="DATE" />
+		<arg column="UPDATE_EMP_NUM" javaType="string" jdbcType="VARCHAR" />
+		<arg column="GOODS_UPDATE_DATE" javaType="java.util.Date" jdbcType="DATE" />
+		<arg column="GOODS_MAIN_IMAGE" javaType="string" jdbcType="VARCHAR" />
+		<arg column="GOODS_MAIN_STORE_IMAGE" javaType="string" jdbcType="VARCHAR" />
+		<arg column="GOODS_DETAIL_IMAGE" javaType="string" jdbcType="VARCHAR" />
+		<arg column="GOODS_DETAIL_STORE_IMAGE" javaType="string" jdbcType="VARCHAR" />		
+	</constructor>
+</resultMap>
+<select id="allSelect" resultMap="goodsResultMap">
+select * from (
+	select ROW_NUMBER() over (order by goods_num desc) as rn,
+			<include refid="goodsColumnsBase" />
+	from goods
+	<where>
+		<if test="searchWord != null">
+			goods_name like '%' || #{searchWord} || '%'
+			or goods_num like '%' || #{searchWord} || '%'
+		</if>
+	</where>
+)
+where rn between #{startRow}  and #{endRow}
+</select>
+
+<select id="goodsCount" parameterType="string" resultType="integer">
+	select count(*) from goods
+	<where>
+		<if test="searchWord != null">
+			goods_name like '%' || #{searchWord} || '%'
+			or goods_num like '%' || #{searchWord} || '%'
+		</if>
+	</where>
+</select>
+
+<select id="selectOne" parameterType="string" resultMap="goodsResultMap">
+	select <include refid="goodsColumnsBase" />
+	from goods
+	where goods_num = #{goodsNum}
+</select>
+
+<update id="goodsUpdate" parameterType="goods"> 
+update goods
+<trim prefix="set" suffixOverrides=",">
+	 GOODS_NAME = #{goodsName}, GOODS_PRICE = #{goodsPrice}
+	,GOODS_CONTENTs = #{goodsContents}
+    ,update_emp_num = #{updateEmpNum}, goods_update_date = sysdate
+    <if test="goodsMainImage != null">
+    ,GOODS_MAIN_IMAGE = #{goodsMainImage}
+    ,GOODS_MAIN_STORE_IMAGE = #{goodsMainStoreImage}
+    </if>
+    <if test="goodsDetailImage != null ">
+    ,GOODS_DETAIL_IMAGE = #{goodsDetailImage}
+    ,GOODS_DETAIL_STORE_IMAGE = #{goodsDetailStoreImage}
+    </if>
+</trim>
+where goods_num = #{goodsNum}
+</update>
+
+<delete id="goodsDelete" parameterType="string">
+	delete from goods
+	where goods_num = #{goodsNum}
+</delete>
+
+
+
+</mapper>
