@@ -9,4 +9,5 @@ import snowProject.domain.AuthInfoDTO;
 public interface LoginMapper {
 	public Integer idCheckSelectOne(@Param("userId") String userId);
 	public AuthInfoDTO loginSelectOne(String userId);
+	public Integer emailCheckSelectOne(@Param("userEmail") String userEmail);
 }

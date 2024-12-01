@@ -11,6 +11,12 @@
 	select 1 from employees where emp_id = #{userId}
 </select>
 
+<select id="emailCheckSelectOne" parameterType="string" resultType="integer">
+	select 1 from members where member_email = #{userEmail}
+	union
+	select 1 from employees where emp_email = #{userEmail}
+</select>
+
 <resultMap type="auth" id="authResultMap">
 	<result column="member_id" property="userId" jdbcType="VARCHAR"/>
 	<result column="member_pw" property="userPw" jdbcType="VARCHAR"/>

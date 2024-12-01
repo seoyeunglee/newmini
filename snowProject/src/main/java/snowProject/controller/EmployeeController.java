@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import snowProject.command.EmpCommand;
 import snowProject.service.AutoNumService;
+import snowProject.service.employee.EmployeeDeleteService;
+import snowProject.service.employee.EmployeeDetailService;
 import snowProject.service.employee.EmployeeInsertService;
 import snowProject.service.employee.EmployeeListService;
+import snowProject.service.employee.EmployeeUpdateService;
 
 @Controller
 @RequestMapping("employee")
@@ -24,9 +27,15 @@ public class EmployeeController {
 	EmployeeInsertService employeeInsertService;
 	@Autowired
 	EmployeeListService employeeListService;
+	@Autowired
+	EmployeeDetailService employeeDetailService;
+	@Autowired
+	EmployeeUpdateService employeeUpdateService;
+	@Autowired
+	EmployeeDeleteService employeeDeleteService;
 	
 	
-	@RequestMapping(value="employeeList", method=RequestMethod.GET)
+	@RequestMapping(value="empList", method=RequestMethod.GET)
 	public String empList(
 			@RequestParam(value="page", required=false, defaultValue="1") int page
 			,@RequestParam(value="searchWord", required=false) String searchWord
@@ -55,6 +64,33 @@ public class EmployeeController {
 		}
 		employeeInsertService.execute(empCommand);
 		return "redirect:employeeList";
+	}
+	
+	@RequestMapping(value="empDetail", method=RequestMethod.GET)
+	public String empDetail(@RequestParam(value = "empNum") String empNum, Model model) {
+		employeeDetailService.execute(empNum, model);
+		return "thymeleaf/employee/employeeDetail";
+	}
+	
+	@RequestMapping(value="empModify", method=RequestMethod.GET)
+	public String empUpdate(@RequestParam(value="empNum") String empNum, Model model) {
+		employeeDetailService.execute(empNum, model);
+		return "thymeleaf/employee/employeeUpdate";
+	}
+	
+	@RequestMapping(value="empModify", method=RequestMethod.POST)
+	public String empUpdate(@Validated EmpCommand empCommand, BindingResult result) {
+		if(result.hasErrors()) {
+			return "thymeleaf/employee/employeeUpdate";
+		}
+		employeeUpdateService.execute(empCommand);
+		return "redirect:empDetail?empNum="+empCommand.getEmpNum();
+	}
+	
+	@GetMapping("empDelete")
+	public String empDelete(@RequestParam(value="empNum") String empNum) {
+		employeeDeleteService.execute("empNum");
+		return "redirect:empList";
 	}
 	
 	

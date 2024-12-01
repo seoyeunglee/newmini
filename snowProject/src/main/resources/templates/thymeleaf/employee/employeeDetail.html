@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>empDetail.html</title>
+</head>
+<body>
+직원 상세 페이지<br />
+
+<table border="1" width="600" align="center">
+<tr><td>직원 번호 : </td><td>[[${empCommand.empNum}]]</td></tr>
+<tr><td>직원 아이디 : </td><td>[[${empCommand.empId}]]</td></tr>
+<tr><td>직원 이름 : </td><td>[[${empCommand.empName }]]</td></tr>
+<tr><td>직원 주소 : </td><td>[[${empCommand.empAddr }]]</td></tr>
+<tr><td>직원 상세주소 : </td><td>[[${empCommand.empAddrDetail }]]</td></tr>
+<tr><td>우편번호 : </td><td>[[${empCommand.empPost }]]</td></tr>
+<tr><td>연락처 : </td><td>[[${empCommand.empPhone }]]</td></tr>
+<tr><td>이메일 :</td><td>[[${empCommand.empEmail}]] </td></tr>
+<tr><td>주민등록번호 : </td><td>[[${empCommand.empJumin}]]</td></tr>
+<tr><td>등록일 : </td><td>[[${#dates.format(empCommand.empHireDate,  'yyyy-MM-dd')}]]</td></tr>
+<tr><td colspan="2"><a th:href="|empModify?empNum=${empCommand.empNum}|">직원 수정</a></td>
+<tr><td colspan="2"><a th:href="@{empDelete(empNum=${empCommand.empNum})}">직원 삭제</a></td>
+<tr><td colspan="2"><a href="empList">회원목록</a></td></tr>
+</table>
+
+</body>
+</html>

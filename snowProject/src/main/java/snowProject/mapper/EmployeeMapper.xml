@@ -59,6 +59,32 @@
 	</if> 
 </select>
 
+<select id="employeeOneSelect" parameterType="string" resultMap="employeeResultMap">
+	select <include refid="employeeBaseColumns" />
+	from employees
+	where emp_num = #{empNum}
+</select>
+
+<update id="employeeUpdate" parameterType="emp">
+	update employees
+set   EMP_NAME = #{empName}
+    , EMP_ADDR =#{empAddr}
+    <if test="empAddrDetail != null">
+    , EMP_ADDR_detail = #{empAddrDetail}
+    </if>
+    , EMP_POST =#{empPost}
+    , EMP_PHONE = #{empPhone}
+    , emp_jumin = #{empJumin}
+    , EMP_HIRE_DATE = #{empHireDate}
+    , emp_email = #{empEmail}
+where EMP_NUM = #{empNum}
+</update>
+
+<delete id="employeeDelete" parameterType="string">
+	<![CDATA[
+		delete from employees where EMP_NUM = #{empNum}
+	]]>
+</delete>
 
 
 

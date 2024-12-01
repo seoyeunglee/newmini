@@ -90,6 +90,11 @@ MEMBER_NUM, MEMBER_NAME, MEMBER_ID, MEMBER_PW
 	where member_num = #{memberNum}
 </delete>
 
+<update id="memberEmailCheckUpdate" parameterType="string">
+	update members
+	set member_email_conf = 'Y'
+	where memebr_email = #{memberEmail} and member_email_conf is null
+</update>
 
 
 </mapper>

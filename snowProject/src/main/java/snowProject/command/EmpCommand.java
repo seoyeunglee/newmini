@@ -37,7 +37,7 @@ public class EmpCommand {
 	String empJumin;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date empHireDate;
-	//empPw와 empPwCon를 비교하기 위한 메서드
+
 	public boolean isEmpPwEqualsEmpPwCon() {
 		return empPw.equals(empPwCon);
 	}
