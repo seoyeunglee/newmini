@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="snowProject.mapper.GoodsIpgoMapper">
+
+<sql id="ipgoBaseColumns">
+	IPGO_NUM, GOODS_NUM, IPGO_QTY, IPGO_DATE, MADE_DATE, IPGO_PRICE, EMP_NUM
+</sql>
+
+<insert id="goodsIpgoInsert" parameterType="goodsIpgo">
+	insert into goods_ipgo (<include refid="ipgoBaseColumns" />)
+	values(#{goodsIpgoNum},#{goodsNum},#{ipgoQty},#{ipgoDate},#{madeDate},#{ipgoPrice},#{empNum})
+</insert>
+
+<select id="goodsIpgoSelectList" resultMap="goodsIpgoResultMap">
+	select <include refid="ipgoBaseColumns"/>
+	from goods_ipgo
+</select>
+
+<resultMap type="goodsIpgo" id="goodsIpgoResultMap">
+<constructor>
+	<idArg column="IPGO_NUM" javaType="string" />
+	<idArg column="GOODS_NUM" javaType="string" />
+	<arg column="IPGO_QTY" javaType="integer" />
+	<arg column="IPGO_DATE" javaType="java.util.Date" />
+	<arg column="MADE_DATE" javaType="java.sql.Timestamp" />
+	<arg column="IPGO_PRICE" javaType="integer" />
+	<arg column="EMP_NUM" javaType="string" />
+</constructor>
+</resultMap>
+
+<select id="itemSelectList" resultType="goods">
+	select*from(
+		select rownum rn,  goods_Num , goods_name , goods_price ,goods_contents , emp_num  
+			  	,goods_regist , GOODS_MAIN_IMAGE ,GOODS_MAIN_STORE_IMAGE 
+			   , GOODS_DETAIL_IMAGE ,GOODS_DETAIL_STORE_IMAGE 
+			   , visit_count ,update_Emp_Num , goods_Update_Date
+		from goods
+		where goods_name like '%' || #{searchWord} || '%'
+		order by goods_Num desc
+	)
+	where re between #{startRow} and #{endRow}
+</select>
+
+<select id="itemListCount" resultType="integer">
+	select count(*) from goods
+	where goods_name like '%' || #{searchWord} || '%'
+</select>
+
+
+
+
+
+</mapper>

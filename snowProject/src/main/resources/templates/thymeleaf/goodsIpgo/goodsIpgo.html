@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>goodsIpgo.html</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script type="text/javascript">
+function validated(){
+	if($("#goodsNum").val()==""){
+		alert("상품번호를 입력해주세요.");
+		return false;
+	}
+}
+$(function(){
+	$("#btn").click(function(){
+		window.open("goodsItem", "상품검색", "width=620, height=500, left=30, top=50");
+	});
+	
+	$("#regist").click(function(){
+		$("#frm").ajaxSubmit({
+			type: "POST",
+			url: "ipgoRegist",
+			beforeSubmit: function(){
+				if($("#goodsNum").val() == ""){
+					alert("상품번호를 입력해주세요.");
+					$("#goodsNum").focus();
+					return false;
+				}
+				if($("#ipgoDate").val() == ""){
+					alert("상품번호를 입력해주세요.");
+					$("#ipgoDate").focus();
+					return false;
+				}
+				if($("#madeDate").val() == ""){
+					alert("상품번호를 입력해주세요.");
+					$("#madeDate").focus();
+					return false;
+				}
+				if($("#ipgoPrice").val() == ""){
+					alert("상품번호를 입력해주세요.");
+					$("#ipgoPrice").focus();
+					return false;
+				}
+			},
+			success: function(result){
+				if(result==200){
+					location.href="goodsIpgoList";
+				}
+			},
+			error: function(){
+				alert("서버오류");
+			}
+		});
+	});
+});
+
+</script>
+</head>
+<body>
+<div id="result">
+<ul>
+	<li><a href="goodsList">상품관리</a></li>
+	<li><a href="goodsIpgo">상품 입고</a></li>
+	<li><a href="goodsIpgoList">상품 입고 현황</a></li>
+</ul>
+<form action="ipgoRegist" method="post" id="frm">
+<table border="1" width="400" align="center">
+<tr><th>입고번호 : </th>
+<td><input type="text" name="goodsIpgoNum" id="goodsIpgoNum" th:value="${goodsIpgoCommand.goodsIpgoNum}" />자동부여</td></tr>
+<tr><th>상품번호 : </th>
+<td><input type="text" name="goodsNum" id="goodsNum" />
+			<button type="button" id="btn">상품검색</button></td></tr>
+<tr><th>상품명 : </th>
+<td><input type="text" name="goodsName" id="ipgoName" /></td></tr>
+<tr><th>입고일 : </th>
+<td><input type="date" name="ipgoDate" id="ipgoDate" /></td></tr>
+<tr><th>입고 수량 : </th>
+<td><input type="number" name="ipgoQty" id="ipgoQty" value="1" min="1" /></td></tr>
+<tr><th>제조일 : </th>
+<td><input type="datetime-local" name="madeDate" id="madeDate" /></td></tr>
+<tr><th>가격 : </th>
+<td><input type="number" name="ipgoPrice" id="ipgoPrice" value="0" min="0" max="100000" /></td></tr>
+<tr><th colspan="2"><input type="button" value="입고 등록" id="regist" /></th></tr>
+</table>
+</form>
+</div>
+</body>
+</html>
