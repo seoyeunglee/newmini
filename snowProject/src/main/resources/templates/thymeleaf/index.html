@@ -10,6 +10,14 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 </style>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/money.js"></script>
+<script type="text/javascript">
+
+
+
+</script>
 </head>
 <body>
 
@@ -17,8 +25,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
   <a href="javascript:void(0)" onclick="w3_close()"
   class="w3-bar-item w3-button">Close Menu</a>
-  <a href="register/userLogin" onclick="w3_close()" class="w3-bar-item w3-button">login</a>
-  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">goods</a>
+  <a href="register/userLogin" onclick="w3_close()" class="w3-bar-item w3-button">로그인</a>
+  <div th:if="${session.auth != null}">
+  	<th:block th:if="${session.auth.grade =='emp'}">
+  	 <a href="member/memberList" onclick="w3_close()" class="w3-bar-item w3-button">회원관리</a>
+  	 <a href="employee/empList" onclick="w3_close()" class="w3-bar-item w3-button">직원관리</a>
+  	 <a href="goods/goodsList" onclick="w3_close()" class="w3-bar-item w3-button">상품관리</a>
+  	</th:block>
+  	 
+  	<th:block th:if="${session.auth.grade=='mem'}">
+  	 <a href="myPage/memberMyPage" onclick="w3_close()" class="w3-bar-item w3-button">회원 마이페이지</a>
+  	 <a href="/item/cartList" onclick="w3_close()" class="w3-bar-item w3-button">장바구니</a>
+  	 <a href="/item/wishList" onclick="w3_close()" class="w3-bar-item w3-button">찜 목록</a>
+  	 <a href="/purchase/orderList" onclick="w3_close()" class="w3-bar-item w3-button">주문목록</a>
+  	</th:block>
+  	
+  	<a href="login/logout" onclick="w3_close()" class="w3-bar-item w3-button">로그아웃</a>
+  </div>
+ 
+  
 </nav>
 
 <!-- Top menu -->
