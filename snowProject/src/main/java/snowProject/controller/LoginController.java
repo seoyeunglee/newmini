@@ -35,8 +35,10 @@ public class LoginController {
 			,HttpServletResponse response) {
 		userLoginService.execute(loginCommand, result, session, response);
 		if(result.hasErrors()) {
+			System.out.println("오류");
 			return "thymeleaf/index";
 		}
+		System.out.println("로그인");
 		return "redirect:/";
 	}
 	

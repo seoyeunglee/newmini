@@ -19,8 +19,8 @@
 <tr><th>번호</th><th>입고번호</th><th>상품번호</th><th>수량</th><th>입고일</th><th>가격</th>
 <tr th:each="dto, idx : ${list}">
 	<th>[[${idx.count}]]</th>
-	<th>[[${dto.goodsIpgoNum}]]</th>
-	<th>[[${dto.goodsNum}]]</th>
+	<th><a th:href="|goodsIpgoDetail?ipgoNum=${dto.goodsIpgoNum}&goodsNum=${dto.goodsNum}|">[[${dto.goodsIpgoNum}]]</a></th>
+	<th><a th:href="|goodsIpgoDetail?ipgoNum=${dto.goodsIpgoNum}&goodsNum=${dto.goodsNum}|">[[${dto.goodsNum}]]</a></th>
 	<th>[[${dto.ipgoQty}]]</th>
 	<th>[[${#dates.format(dto.ipgoDate, 'yyyy-MM-dd')}]]</th>
 	<th>[[${#numbers.formatCurrency(dto.ipgoPrice) + "원"}]]</th>

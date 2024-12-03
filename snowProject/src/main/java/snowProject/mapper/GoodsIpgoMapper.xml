@@ -32,16 +32,16 @@
 </resultMap>
 
 <select id="itemSelectList" resultType="goods">
-	select*from(
-		select rownum rn,  goods_Num , goods_name , goods_price ,goods_contents , emp_num  
+	select * from(
+		select rownum rn,  goods_num , goods_name , goods_price ,goods_contents , emp_num  
 			  	,goods_regist , GOODS_MAIN_IMAGE ,GOODS_MAIN_STORE_IMAGE 
 			   , GOODS_DETAIL_IMAGE ,GOODS_DETAIL_STORE_IMAGE 
-			   , visit_count ,update_Emp_Num , goods_Update_Date
+			   , visit_count ,update_emp_num , goods_update_date
 		from goods
 		where goods_name like '%' || #{searchWord} || '%'
-		order by goods_Num desc
+		order by goods_num desc
 	)
-	where re between #{startRow} and #{endRow}
+	where rn between #{startRow} and #{endRow}
 </select>
 
 <select id="itemListCount" resultType="integer">
@@ -49,7 +49,36 @@
 	where goods_name like '%' || #{searchWord} || '%'
 </select>
 
+<resultMap type="goodsIpgoGoodsName" id="goodsIpgoGoodsNameResultMap">
+	<result column="goods_name" jdbcType="VARCHAR" javaType="string" property="goodsName"/>
+	<association property="goodsIpgoDTO" javaType="goodsIpgo" resultMap="goodsIpgoResultMap"/>
+</resultMap>
 
+<select id="ipgoGoodsSelectOne" resultMap="goodsIpgoGoodsNameResultMap">
+	select ipgo_num, ip.goods_num, ipgo_qty, ipgo_date
+			, made_date, ipgo_price, ip.emp_num, goods_name
+	from goods_ipgo ip join goods g
+	on ip.goods_num = g.goods_num
+	where ipgo_num = #{ipgoNum} and ip.goods_num = #{goodsNum}
+
+</select>
+
+<update id="goodsIpgoUpdate" parameterType="goodsIpgo">
+	update goods_ipgo
+	set ipgo_date=#{ipgoDate}, ipgo_qty=#{ipgoQty}
+		, made_date=#{madeDate}, ipgo_price=#{ipgoPrice}
+	where (goods_num, ipgo_num) in ((#{goodsIpgoNum}, #{goodsNum}))
+</update>
+
+<delete id="ipgoGoodsNumDelete">
+	delete from goods_ipgo
+	where (ipgo_num, goods_num) in (
+		<foreach collection="ipgoNumgoodsNum.split('-')" item="item" 
+								close=")" open="(" separator="," index="index">
+		#{item}
+		</foreach>
+	)
+</delete>
 
 
 
