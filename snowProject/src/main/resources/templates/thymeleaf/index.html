@@ -14,7 +14,36 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="/static/js/money.js"></script>
 <script type="text/javascript">
-
+var page = 0;
+$(function(){
+	loadMoreItems();
+	$("#load-more").click(loadMoreItems);
+});
+function loadMoreItems(){
+	page++;
+	$.ajax({
+		url : "/",
+		type: "post",
+		data: {"page":page},
+		dataType: "json",
+		success: function(model){
+			var item = '';
+			item += '';
+			item += '';
+			item += '';
+			$.each(model.list, function(idx, dto){
+				item += '<a href="corner/detailView/'+dto.goodsNum+'">';
+				item += '<img src="/static/upload/'+ dto.goodsMainStoreImage+'" width="300" height="300"/><br />';
+				item += dto.goodsName + '<br />';
+				item += formatter.format(dto.goodsPrice) + '원<br />';
+			});
+			
+			$("#content").append(item);
+			if(model.maxPage <= page) $("#load-more").css("display", "none");
+			if(model.maxPage == 0) page = 0;
+		}
+	})
+}
 
 
 </script>
@@ -54,6 +83,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <div class="w3-center w3-padding-16">Yarn</div>
   </div>
 </div>
+
+<div id="content"></div>
+<button id="load-more">더보기</button>
   
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">

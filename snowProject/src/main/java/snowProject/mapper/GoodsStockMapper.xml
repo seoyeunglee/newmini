@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="snowProject.mapper.GoodsStockMapper">
+
+<resultMap type="goodsStock" id="goodsStockResultMap">
+	<result column="stock" jdbcType="VARCHAR" property="stock"/>
+	<association property="goodsDTO" javaType="goods">
+		<id column="goods_num" jdbcType="VARCHAR" property="goodsNum" />
+		<result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+		<result column="goods_price" jdbcType="BIGINT" property="goodsPrice" />
+		<result column="goods_contents" jdbcType="VARCHAR" property="goodsContents" />
+		<result column="visit_count" jdbcType="BIGINT" property="visitCount" />
+		<result column="goods_main_image" jdbcType="VARCHAR" property="goodsMainImage" />
+		<result column="goods_main_store_image" jdbcType="VARCHAR" property="goodsMainStoreImage" />
+		<result column="goods_detail_image" jdbcType="VARCHAR" property="goodsDetailImage" />
+		<result column="goods_detail_store_image" jdbcType="VARCHAR" property="goodsDetailStoreImage" />
+		<result column="emp_num" jdbcType="VARCHAR" property="empNum" />
+		<result column="goods_regist" jdbcType="DATE" property="goodsRegist" />
+		<result column="update_emp_num" jdbcType="VARCHAR" property="updateEmpNum" />
+		<result column="goods_update_date" jdbcType="DATE" property="goodsUpdateDate" />
+	</association>
+</resultMap>
+
+<select id="goodsStockSelectOne" parameterType="string" resultMap="goodsStockResultMap">
+	select g.goods_num, goods_name, goods_price, goods_contents, emp_num
+			, goods_regist, goods_main_image, goods_main_store_image
+			, goods_detail_image, goods_detail_store_image
+			, visit_count, update_emp_num, goods_update_date
+			, stock
+	from goods g left outer join 
+	(select ip.goods_num, nvl(iqty,0) - nvl(pqty,0) stock
+	from (select goods_num, sum(ipgo_qty) iqty
+			from goods_ipgo
+			group by goods_num) ip left outer join
+		(select goods_num, sum(purchase_qty) pqty
+		from purchase_list
+		group by goods_num) pl
+		on ip.goods_num = pl.goods_num) s
+		on g.goods_num = s.goods_num
+		where g.goods_num = #{goodsNum}
+</select>
+
+<update id="goodsVisitCountUpdate" parameterType="string">
+	update goods
+	set visit_count = visit_count + 1
+	where goods_num = #{goodsNum}
+</update>
+
+
+
+</mapper>

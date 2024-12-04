@@ -96,5 +96,9 @@ MEMBER_NUM, MEMBER_NAME, MEMBER_ID, MEMBER_PW
 	where memebr_email = #{memberEmail} and member_email_conf is null
 </update>
 
+<select id="memberNumSelect" parameterType="string" resultType="string">
+	select member_num from members where member_id = #{memberId}
+</select>
+
 
 </mapper>
