@@ -34,5 +34,15 @@ MEMBER_NUM, MEMBER_NAME, MEMBER_ID, MEMBER_PW
 	where MEMBER_ID = #{memberId}
 </update>
 
+<delete id="memberDelete">
+	delete from members
+	where member_id = #{memberId}
+</delete>
+
+<update id="memberPwUpdate">
+	update members
+	set member_pw = #{_newPw}
+	where member_id = #{_memberId}
+</update>
 
 </mapper>

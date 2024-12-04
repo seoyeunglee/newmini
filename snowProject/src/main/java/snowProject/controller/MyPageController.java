@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpSession;
 import snowProject.command.MemberCommand;
+import snowProject.service.myPage.MemberDropService;
 import snowProject.service.myPage.MemberMyInfoService;
 import snowProject.service.myPage.MemberMyUpdateService;
+import snowProject.service.myPage.MemberPwUpdateService;
 
 @Controller
 @RequestMapping("myPage")
@@ -19,6 +21,10 @@ public class MyPageController {
 	MemberMyInfoService memberMyInfoService;
 	@Autowired
 	MemberMyUpdateService memberMyUpdateService;
+	@Autowired
+	MemberDropService memberDropService;
+	@Autowired
+	MemberPwUpdateService memberPwUpdateService;
 	
 	@GetMapping("memberMyPage")
 	public String memberMyPage(HttpSession session, Model model) {
@@ -35,6 +41,23 @@ public class MyPageController {
 		memberMyUpdateService.execute(memberCommand, session);
 		return "redirect:memberMyPage";
 	}
+	@GetMapping("memberDrop")
+	public String memberDrop() {
+		return "thymeleaf/myPage/memberDrop";
+	}
+	@PostMapping("memberDropOk")
+	public String memberDropOk(String memberPw, HttpSession session) {
+		memberDropService.execute(memberPw, session);
+		return "redirect:/login/logout";
+	}
+	@GetMapping("memberPwModify")
+	public String memberPwModify() {
+		return "thymeleaf/myPage/myNewPw";
+	}
+	@PostMapping("memberPwPro")
+	public String newPw(String oldPw, String newPw, HttpSession session) {
+		memberPwUpdateService.execute(oldPw, newPw, session);
+		return "redirect:memberMyPage";
+	}
 	
-
 }
