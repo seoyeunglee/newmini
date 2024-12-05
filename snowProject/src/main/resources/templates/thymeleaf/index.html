@@ -2,15 +2,6 @@
 <html>
 <head>
 <title>W3.CSS Template</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
-.w3-bar-block .w3-bar-item {padding:20px}
-</style>
-
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="/static/js/money.js"></script>
 <script type="text/javascript">
@@ -50,7 +41,20 @@ function loadMoreItems(){
 		}
 	})
 }
+  document.getElementById("hello").addEventListener("selectstart", function(event) {
+    event.preventDefault(); // 텍스트 선택 시작 차단
+  });
 </script>
+</head>
+<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+</style>
 </head>
 <body>
 
@@ -95,31 +99,35 @@ function loadMoreItems(){
   <!-- First Photo Grid-->
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
-      <img src="/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
+      <img src="/static/images/sandwich.png" alt="Sandwich" style="width:100%">
       <h3>The Perfect Sandwich, A Real NYC Classic</h3>
       <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
     </div>
     <div class="w3-quarter">
-      <img src="/w3images/steak.jpg" alt="Steak" style="width:100%">
+      <img src="/static/images/sandwich.png" alt="Steak" style="width:100%">
       <h3>Let Me Tell You About This Steak</h3>
       <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
     </div>
     <div class="w3-quarter">
-      <img src="/w3images/cherries.jpg" alt="Cherries" style="width:100%">
+      <img src="/static/images/sandwich.png" alt="Cherries" style="width:100%">
       <h3>Cherries, interrupted</h3>
       <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
       <p>What else?</p>
     </div>
     <div class="w3-quarter">
-      <img src="/w3images/wine.jpg" alt="Pasta and Wine" style="width:100%">
+      <img src="/static/images/sandwich.png" alt="Pasta and Wine" style="width:100%">
       <h3>Once Again, Robust Wine and Vegetable Pasta</h3>
       <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
     </div>
-  </div>
-
     
-  <div id="content"></div>
-<button id="load-more">더보기</button>
+      <div id="content"></div>
+<table align = "center" width="900" >
+	<tr><th><button id="load-more">더보기</button></th></tr>
+</table>
+
+</div>
+    
+
 
   
   <!-- Second Photo Grid-->
