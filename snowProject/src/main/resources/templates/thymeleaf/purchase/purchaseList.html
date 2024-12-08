@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>purchaseList.html</title>
+</head>
+<body>
+<table width="800" align="center">
+   <tr><td>주문일(결제번호)</td> 
+      <td>상품명/주문번호</td> 
+      <td>주문상태</td> 
+   </tr>
+   <tr th:each="orderListDTO : ${list}">
+   <td>[[${#dates.format(orderListDTO.purchaseDTO.purchaseDate,'yyyy-MM-dd')}]] 
+   					([[${orderListDTO.purchaseDTO.purchaseNum}]])</td> 
+      <th:block th:each="purchaseListGoodsDTO : ${orderListDTO.purchaseListGoodsDTOs}">
+	<td> <img src="|/static/upload/${purchaseListGoodsDTO.goodsDTO.goodsDTO.goodsMainStoreImage}|"
+			width="30" />
+	[[${purchaseListGoodsDTO.goodsDTO.goodsName}]] 
+	/ [[${orderListDTO.purchaseDTO.purchaseNum}]]
+	</td>
+	</th:block>
+      <td>[[${orderListDTO.purchaseDTO.purchaseStatus}]]</td> 
+   </tr>
+   
+</table>
+</body>
+</html>
