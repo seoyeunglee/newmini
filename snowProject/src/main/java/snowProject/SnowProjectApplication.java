@@ -25,6 +25,7 @@ public class SnowProjectApplication {
 	public String index() {
 		return "thymeleaf/index";
 	}
+	
 	@PostMapping("/")
 	public ModelAndView index(int page, Model model) {
 		ModelAndView mav = new ModelAndView();
@@ -32,5 +33,5 @@ public class SnowProjectApplication {
 		mainGoodsListService.execute(page, model);
 		return mav;
 	}
-
+	
 }

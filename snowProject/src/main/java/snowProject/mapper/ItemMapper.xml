@@ -25,10 +25,13 @@ select <include refid="goodsColumnsBase" />
 from goods
 where goods_num in (select goods_num from wish where member_num = #{memberNum})
 </select>
-<select id="wishCountSelectOne" parameterType="hashmap" resultType="integer">
-	select count(*) from wish
-	where goods_num = #{goodsNum} and member_num = #{memberNum}
-</select>
+
+<update id="cartQtyDownUpdate" parameterType="java.util.Map">
+update cart
+set cart_qty = cart_qty - 1
+where member_num = #{memberNum} and goods_num = #{goodsNum}
+</update>
+
 </mapper>
 
 

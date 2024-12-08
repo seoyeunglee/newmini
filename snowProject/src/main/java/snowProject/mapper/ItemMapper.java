@@ -9,7 +9,8 @@ import snowProject.domain.GoodsDTO;
 
 @Mapper
 public interface ItemMapper {
-	public Integer wishCountSelectOne(Map<String, String> map);
+	// public Integer wishCountSelectOne(Map<String, String> map);
 	public List<GoodsDTO> wishSelectList(String memberNum);
 	public int wishItem(Map<String , String> map);
+	public void cartQtyDownUpdate(Map<String, String> map);
 }

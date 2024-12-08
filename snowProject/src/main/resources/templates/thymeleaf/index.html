@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>YarnShopping</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="/static/js/money.js"></script>
 <script type="text/javascript">
@@ -21,13 +21,13 @@ function loadMoreItems(){
 			var item  = '';
 			item += '<table align = "center"  >';
 			item += '<colgroup>';
-			item += '<col span="3" width="300" height="330" /> ';
+			item += '<col span="3" width="300" height="350" /> ';
 			item += '</colgroup>';
 			item += '<tr>';
 			$.each(model.list , function(idx, dto){
 				item += '<td>';
-				item += '<a href="corner/detailView/'+dto.goodsNum+'">';
-				item += '<img src="/static/upload/'+ dto.goodsMainStoreImage +'" width="300" height="300"/><br />';
+				item += '<a href="item/detailView/'+dto.goodsNum+'">';
+				item += '<img src="/static/upload/'+ dto.goodsMainStoreImage +'" width="250" height="250"/><br />';
 				item += dto.goodsName + '<br />';
 				item += formatter.format(dto.goodsPrice) + '원<br />';
 				item += '</a></td>';
@@ -41,9 +41,7 @@ function loadMoreItems(){
 		}
 	})
 }
-  document.getElementById("hello").addEventListener("selectstart", function(event) {
-    event.preventDefault(); // 텍스트 선택 시작 차단
-  });
+
 </script>
 </head>
 <body>
@@ -57,6 +55,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </style>
 </head>
 <body>
+
 
 <!-- Sidebar (hidden by default) -->
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
@@ -88,7 +87,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
     <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
     <div class="w3-right w3-padding-16">cart</div>
-    <div class="w3-center w3-padding-16">Yarn</div>
+    <div class="w3-center w3-padding-16">Crochet Market</div>
   </div>
 </div>
 
@@ -99,62 +98,32 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <!-- First Photo Grid-->
   <div class="w3-row-padding w3-padding-16 w3-center" id="food">
     <div class="w3-quarter">
-      <img src="/static/images/sandwich.png" alt="Sandwich" style="width:100%">
-      <h3>The Perfect Sandwich, A Real NYC Classic</h3>
-      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+      <img src="/static/images/wool1.jpg" alt="Sandwich" style="width:100%">
+      <h3>Welcome to the Crochet World!</h3>
+      <p>Explore a vibrant gallery of unique, handcrafted knitting and crochet projects. Dive into the creativity of our community, and get inspired by the amazing work shared by fellow crafters.</p>
     </div>
     <div class="w3-quarter">
-      <img src="/static/images/sandwich.png" alt="Steak" style="width:100%">
-      <h3>Let Me Tell You About This Steak</h3>
-      <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+      <img src="/static/images/wool6.jpg" alt="Steak" style="width:100%">
+      <h3>Showcase Your Masterpieces</h3>
+      <p>Share your passion by uploading your own creations. Whether it's a cozy scarf, an intricate sweater, or a quirky design, your work deserves to shine and inspire others.</p>
     </div>
     <div class="w3-quarter">
-      <img src="/static/images/sandwich.png" alt="Cherries" style="width:100%">
-      <h3>Cherries, interrupted</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-      <p>What else?</p>
+      <img src="/static/images/wool3.jpg" alt="Cherries" style="width:100%">
+      <h3>Find the Perfect Pattern</h3>
+      <p>Looking for your next project? Browse a diverse collection of patterns shared by talented designers. From beginner-friendly guides to advanced techniques, there’s something for everyone.</p>
+     
     </div>
     <div class="w3-quarter">
-      <img src="/static/images/sandwich.png" alt="Pasta and Wine" style="width:100%">
-      <h3>Once Again, Robust Wine and Vegetable Pasta</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    
-      <div id="content"></div>
-<table align = "center" width="900" >
-	<tr><th><button id="load-more">더보기</button></th></tr>
-</table>
+      <img src="/static/images/wool4.jpg" alt="Pasta and Wine" style="width:100%">
+      <h3>Sell and Buy Patterns</h3>
+      <p>Turn your designs into an income source! Upload your original patterns for sale or find and purchase beautiful patterns created by others in the community.
 
+</p>
+    </div>
 </div>
     
 
-
-  
-  <!-- Second Photo Grid-->
-  <div class="w3-row-padding w3-padding-16 w3-center">
-    <div class="w3-quarter">
-      <img src="/w3images/popsicle.jpg" alt="Popsicle" style="width:100%">
-      <h3>All I Need Is a Popsicle</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/w3images/salmon.jpg" alt="Salmon" style="width:100%">
-      <h3>Salmon For Your Skin</h3>
-      <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
-      <h3>The Perfect Sandwich, A Real Classic</h3>
-      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="/w3images/croissant.jpg" alt="Croissant" style="width:100%">
-      <h3>Le French</h3>
-      <p>Lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-  </div>
-
-  <!-- Pagination -->
+  <!-- Pagination 
   <div class="w3-center w3-padding-32">
     <div class="w3-bar">
       <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
@@ -165,10 +134,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
     </div>
   </div>
+-->
+          
+    <div id="content"></div>
+	<table align = "center" width="900" >
+		<tr><th><button id="load-more">더보기</button></th></tr>
+  	</table>
   
+  <!-- 
   <hr id="about">
 
-  <!-- About Section -->
+ 
   <div class="w3-container w3-padding-32 w3-center">  
     <h3>About Me, The Food Man</h3><br>
     <img src="/w3images/chef.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
@@ -179,6 +155,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     </div>
   </div>
   <hr>
+   -->
   
   <!-- Footer -->
   <footer class="w3-row-padding w3-padding-32">
@@ -192,12 +169,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <h3>BLOG POSTS</h3>
       <ul class="w3-ul w3-hoverable">
         <li class="w3-padding-16">
-          <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <img src="/static/images/christmas.jpg" class="w3-left w3-margin-right" style="width:50px">
           <span class="w3-large">Lorem</span><br>
           <span>Sed mattis nunc</span>
         </li>
         <li class="w3-padding-16">
-          <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <img src="/static/images/christmas.jpg" class="w3-left w3-margin-right" style="width:50px">
           <span class="w3-large">Ipsum</span><br>
           <span>Praes tinci sed</span>
         </li> 

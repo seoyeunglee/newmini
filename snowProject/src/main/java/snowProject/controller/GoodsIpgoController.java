@@ -111,7 +111,7 @@ public class GoodsIpgoController {
 		goodsIpgoDeleteService.execute(num);
 		return "redirect:goodsIpgoList";
 	}
-	
+
 	
 
 }
